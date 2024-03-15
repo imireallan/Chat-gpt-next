@@ -98,6 +98,9 @@ import { getClientConfig } from "../config/client";
 import { useAllModels } from "../utils/hooks";
 import { MultimodalContent } from "../client/api";
 
+
+import uploadImageV2 from '@/app/helpers/imageUpload'
+
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
 });
@@ -1142,7 +1145,7 @@ function _Chat() {
     [attachImages, chatStore],
   );
 
-  async function uploadImage() {
+ const uploadImage = async () => {
     const images: string[] = [];
     images.push(...attachImages);
 
@@ -1180,11 +1183,13 @@ function _Chat() {
       })),
     );
 
+    const setWithNoDuplicates = new Set(images)
+
     const imagesLength = images.length;
     if (imagesLength > 3) {
       images.splice(3, imagesLength - 3);
     }
-    setAttachImages(images);
+    setAttachImages([...setWithNoDuplicates]);
   }
 
   return (
@@ -1453,7 +1458,11 @@ function _Chat() {
         <PromptHints prompts={promptHints} onPromptSelect={onPromptSelect} />
 
         <ChatActions
-          uploadImage={uploadImage}
+          uploadImage={() => uploadImageV2({
+            setAttachImages,
+            attachImages,
+            setUploading
+          })}
           setAttachImages={setAttachImages}
           setUploading={setUploading}
           showPromptModal={() => setShowPromptModal(true)}

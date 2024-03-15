@@ -13,7 +13,8 @@
     "app:build": "yarn tauri build",
     "prompts": "node ./scripts/fetch-prompts.mjs",
     "prepare": "husky install",
-    "proxy-dev": "sh ./scripts/init-proxy.sh && proxychains -f ./scripts/proxychains.conf yarn dev"
+    "proxy-dev": "sh ./scripts/init-proxy.sh && proxychains -f ./scripts/proxychains.conf yarn dev",
+    "test": "jest"
   },
   "dependencies": {
     "@fortaine/fetch-event-source": "^3.0.6",
@@ -45,6 +46,9 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "1.5.7",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.9.0",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.7",
@@ -56,6 +60,8 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^13.2.2",
     "prettier": "^3.0.2",
     "typescript": "5.2.2",
